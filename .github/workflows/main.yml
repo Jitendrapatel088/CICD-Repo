@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-        runs-on: ubuntu-ratest
+        runs-on: ubuntu-latest
         steps:
           -namae: print my name
           run: |
