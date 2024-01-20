@@ -14,7 +14,8 @@ jobs:
              echo "Jitendra"
 
           -name: current folder
-           run: pwd 
+           run: |
+             pwd 
           
         
   
