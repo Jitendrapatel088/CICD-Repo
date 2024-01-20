@@ -9,10 +9,10 @@ jobs:
   deploy:
         runs-on: ubuntu-latest
         steps:
-          -namae: print my name
-          run: |
-            echo "Jitendra"
+          - name: print my name
+            run: |
+              echo "Jitendra"
 
-          -name: current folder
-           run: |
-            pwd
+          - name: current folder
+            run: |
+              pwd
