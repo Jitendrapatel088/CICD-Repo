@@ -11,11 +11,11 @@ jobs:
         steps:
           -namae: print my name
           run: |
-             echo "Jitendra"
+            echo "Jitendra"
 
           -name: current folder
            run: |
-             pwd 
+            pwd
           
         
   
