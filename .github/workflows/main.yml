@@ -16,7 +16,7 @@ jobs:
              uses: appleboy/ssh-action@v1.0.3
              with:
                host: ${{ secrets.EC2_HOST }}
-               username: ${{ secrets.EC2_USER_NAME }}
+               username: ${{ secrets.E2_USER_NAME }}
                key: ${{ secrets.EC2_SSH_KEY }}
                port: 22
                script: |
@@ -28,7 +28,7 @@ jobs:
              uses: appleboy/scp-action@v0.1.7
              with:
               host: ${{ secrets.EC2_HOST }}
-              username: ${{ secrets.EC2_USER_NAME }}
+              username: ${{ secrets.E2_USER_NAME }}
               key: ${{ secrets.EC2_SSH_KEY }}
               port: 22
               source: ./
@@ -38,7 +38,7 @@ jobs:
              uses: appleboy/ssh-action@v1.0.3
              with:
                host: ${{ secrets.EC2_HOST }}
-               username: ${{ secrets.EC2_USER_NAME }}
+               username: ${{ secrets.E2_USER_NAME }}
                key: ${{ secrets.EC2_SSH_KEY }}
                port: 22
                script: |
