@@ -25,8 +25,8 @@ jobs:
                  sudo apt-get update
                  
            - name: copy file via ssh password
-              uses: appleboy/scp-action@v0.1.7
-              with:
+             uses: appleboy/scp-action@v0.1.7
+             with:
               host: ${{ secrets.EC2_HOST }}
               username: ${{ secrets.EC2_USER_NAME }}
               key: ${{ secrets.EC2_SSH_KEY }}
@@ -34,7 +34,7 @@ jobs:
               source: ./
               target: /var/www/html
               
-          - name: restartthe nginx 
+           - name: restartthe nginx 
              uses: appleboy/ssh-action@v1.0.3
              with:
                host: ${{ secrets.EC2_HOST }}
