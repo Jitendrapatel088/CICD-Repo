@@ -20,8 +20,6 @@ jobs:
                key: ${{ secrets.EC2_BACKEND_SSH_KEY }}
                port: 22
                script: |
-                 whoami
-                 pwd
                  sudo apt-get update -y
                  sudo apt-get install nginx -y
 		 sudo mkdir -p /var/www/html
@@ -34,7 +32,7 @@ jobs:
                  sudo mkdir -p /TravelMemory/backend
                  sudo chown -R ${{ secrets.EC2_BACKEND_USER_NAME }} /TravelMemory/backend
                  sudo chmod -R 755 /TravelMemory/backend
-				 npm install
+		 npm install
                  
            - name: copy file via ssh password
              uses: appleboy/scp-action@v0.1.7
