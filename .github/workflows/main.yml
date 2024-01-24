@@ -55,12 +55,10 @@ jobs:
                  sudo mkdir -p /TravelMemory/backend
                  sudo chown -R ${{ secrets.EC2_BACKEND_USER_NAME }} /TravelMemory/backend
                  sudo chmod -R 755 /TravelMemory/backend
-		             npm install
-
-             
-             - name: copy file via ssh password
-               uses: appleboy/scp-action@v0.1.7
-               with:
+		    
+           - name: copy file via ssh password
+             uses: appleboy/scp-action@v0.1.7
+             with:
                 host: ${{ secrets.EC2_BACKEND_HOST }}
                 username: ${{ secrets.EC2_BACKEND_USER_NAME }}
                 key: ${{ secrets.EC2_BACKEND_SSH_KEY }}
@@ -68,9 +66,9 @@ jobs:
                 source: ./
                 target: /TravelMemory/backend
                            
-            - name: restart the nginx 
-              uses: appleboy/ssh-action@v1.0.3
-              with:
+           - name: restart the nginx 
+             uses: appleboy/ssh-action@v1.0.3
+             with:
                host: ${{ secrets.EC2_HOST }}
                username: ${{ secrets.EC2_USER_NAME }}
                key: ${{ secrets.EC2_SSH_KEY }}
