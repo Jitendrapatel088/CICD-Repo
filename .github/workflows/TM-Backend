@@ -1,0 +1,57 @@
+name: TM Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+        runs-on: ubuntu-latest
+        steps:
+           - name: checking out code on runner
+             uses: actions/checkout@v4
+
+           - name: login to EC2
+             uses: appleboy/ssh-action@v1.0.3
+             with:
+               host: ${{ secrets.EC2_BACKEND_HOST }}
+               username: ${{ secrets.EC2_BACKEND_USER_NAME }}
+               key: ${{ secrets.EC2_BACKEND_SSH_KEY }}
+               port: 22
+               script: |
+                 whoami
+                 pwd
+                 sudo apt-get update -y
+                 sudo apt-get install nginx -y
+				 sudo mkdir -p /var/www/html
+                 sudo chown -R ${{ secrets.EC2_USER_NAME }} /var/www/html
+                 sudo chmod -R 755 /var/www/html
+                 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+                 . ~/.nvm/nvm.sh
+                 nvm install --lts
+                 git clone https://github.com/UnpredictablePrashant/TravelMemory.git
+                 sudo mkdir -p /TravelMemory/backend
+                 sudo chown -R ${{ secrets.EC2_BACKEND_USER_NAME }} /TravelMemory/backend
+                 sudo chmod -R 755 /TravelMemory/backend
+				 npm install
+                 
+           - name: copy file via ssh password
+             uses: appleboy/scp-action@v0.1.7
+             with:
+              host: ${{ secrets.EC2_BACKEND_HOST }}
+              username: ${{ secrets.EC2_BACKEND_USER_NAME }}
+              key: ${{ secrets.EC2_BACKEND_SSH_KEY }}
+              port: 22
+              source: ./
+              target: /TravelMemory/backend
+              
+           - name: restart the nginx 
+             uses: appleboy/ssh-action@v1.0.3
+             with:
+               host: ${{ secrets.EC2_BACKEND_HOST }}
+               username: ${{ secrets.EC2_BACKEND_USER_NAME }}
+               key: ${{ secrets.EC2_BACKEND_SSH_KEY }}
+               port: 22
+               script: |
+                 sudo systemctl restart nginx
